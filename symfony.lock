@@ -90,9 +90,6 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.2.0"
     },
-    "masnun/symfony-cli": {
-        "version": "dev-master"
-    },
     "php": {
         "version": "7.3"
     },
