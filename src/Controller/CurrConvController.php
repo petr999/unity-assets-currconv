@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
+use UnityAssets\CurrConv;
+
 /**
  * Currency conversion controller.
  * @Route( "/api/v0", name="api_v0", defaults = { "_format" : "json" } )
@@ -79,8 +81,31 @@ class CurrConvController extends AbstractController
           throw new BadRequestHttpException( json_encode( $errors, JSON_UNESCAPED_UNICODE ) );
         }
 
-        return $this->json([
-        ]);
+        $currConv = new CurrConv();
+        $this->checkCurrsExist( $currConv, $baseCurr, $targCurr );
+        $value = $currConv->convertBaseTargSum( $baseCurr, $targCurr, $baseSum );
+
+        return $this->json( $value );
+    }
+
+    /**
+     * Check if currency exists
+     */
+    protected function checkCurrsExist( CurrConv $currConv, string $baseCurr, string $targCurr ){
+      $errors = [];
+
+      $baseCurrExists = $currConv->currExists( $baseCurr );
+      if( ! $baseCurrExists ){
+        $errors[] = "baseCurr: '${baseCurr}' not found!";
+      }
+      $targCurrExists = $currConv->currExists( $targCurr );
+      if( ! $targCurrExists ){
+        $errors[] = "targCurr: '${targCurr}' not found!";
+      }
+
+      if( ! empty( $errors ) ){
+        throw new BadRequestHttpException( json_encode( $errors, JSON_UNESCAPED_UNICODE ) );
+      }
     }
 
 }

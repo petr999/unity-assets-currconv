@@ -16,7 +16,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="CurrConv set of tests">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
