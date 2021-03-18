@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  unity_assets_currconv:
+    image: 'docker.io/bitnami/symfony:1-debian-10'
+    ports:
+      - '8000:8000'
+    volumes:
+      - '.:/app/myapp'
+    command:
+      /bin/sh -c 'cd /app/myapp && composer install && TINI_SUBREAPER=1 /bin/bash -x /app-entrypoint.sh /run.sh'
