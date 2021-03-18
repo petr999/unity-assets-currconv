@@ -24,4 +24,6 @@ The arguments are: `baseCurr` for base currency, `targCurr` for target currency,
 
 Functional tests are included. Easiest way to run them is:
 
+```
 docker exec -it -u 1000:1000 unity-assets-currconv_unity_assets_currconv_1 bash -lc 'cd /app/myapp && PATH="/opt/bitnami/php/bin:${PATH}"; ./bin/phpunit'
+```
