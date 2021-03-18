@@ -19,3 +19,9 @@ curl -v 'http://localhost:8000/api/v0/curr/conv?baseCurr=RUB&targCurr=USD&baseSu
 ```
 
 The arguments are: `baseCurr` for base currency, `targCurr` for target currency, `baseSum` for sum in a base currency to be converted - all mandatory.
+
+# Test
+
+Functional tests are included. Easiest way to run them is:
+
+docker exec -it -u 1000:1000 unity-assets-currconv_unity_assets_currconv_1 bash -lc 'cd /app/myapp && PATH="/opt/bitnami/php/bin:${PATH}"; ./bin/phpunit'
