@@ -84,6 +84,22 @@ class CurrConvFuncTest extends WebTestCase
         $contentType = $response->headers->get('content-type');
         $this->assertEquals('application/json', $contentType);
 
+        // All curr RUB
+        $client->request('GET', '/api/v0/curr/conv?baseCurr=RUB&targCurr=RUB&baseSum=12');
+        $response =  $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content =  0 + $response->getContent();
+        $this->assertTrue( is_numeric( $content ) );
+        $this->assertEquals(12, $content);
+
+        // targCurr RUB
+        $client->request('GET', '/api/v0/curr/conv?baseCurr=USD&targCurr=RUB&baseSum=12');
+        $response =  $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content =  0 + $response->getContent();
+        $this->assertTrue( is_numeric( $content ) );
+
+        // baseCurr RUB
         $client->request('GET', '/api/v0/curr/conv?baseCurr=RUB&targCurr=USD&baseSum=120.15');
         $response =  $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -91,6 +107,7 @@ class CurrConvFuncTest extends WebTestCase
         $this->assertTrue( is_numeric( $content ) );
         $this->assertTrue( $content < 120.15  ); // RUB is always cheaper than USD
 
+        // No RUB
         $client->request('GET', '/api/v0/curr/conv?baseCurr=GBP&targCurr=USD&baseSum=12011.155');
         $response =  $client->getResponse();
         $this->assertEquals( 200, $response->getStatusCode() );

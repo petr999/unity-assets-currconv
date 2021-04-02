@@ -32,9 +32,10 @@ class CurrConv{
   }
 
   // Convert currency
-  function convertBaseTargSum( $base, $targ, $baseSum ) {
+  function convertBaseTargSum( $base, $targ, $baseSumStr ) {
     $sum = null;
     $exchQuotes = $this->exchQuotes;
+    $baseSum = 0 + $baseSumStr;
 
     if( 'RUB' == $base ){
       if( 'RUB' == $targ ){
@@ -48,7 +49,7 @@ class CurrConv{
       }
     } elseif( 'RUB' == $targ ){
       $quote = $exchQuotes[ $base ];
-      $mult = 1 *  $quote;
+      $sum = $baseSum * $quote;
     } else {
       $quoteBase = $exchQuotes[ $base ];
       $quoteTarg = $exchQuotes[ $targ ];
